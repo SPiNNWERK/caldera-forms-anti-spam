@@ -1,4 +1,4 @@
-<<?php
+<?php
 
 
 class CF_Antispam_Recaptcha {
