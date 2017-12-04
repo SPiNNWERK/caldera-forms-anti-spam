@@ -17,20 +17,20 @@ define( 'CF_ANTISPAM_VER', '1.4.1' );
 add_action( 'caldera_forms_includes_complete', 'cf_antispam_init' );
 
 function cf_antispam_init(){
-	Caldera_Forms_Autoloader::add_root( 'CF_Antispam', __DIR__ . '/classes' );
-	cf_antispam_init_recpatcha();
+    Caldera_Forms_Autoloader::add_root( 'CF_Antispam', __DIR__ . '/classes' );
+    cf_antispam_init_recaptcha();
 }
 
 
-function cf_antispam_init_recpatcha(){
-	$recaptcha = new CF_Antispam_Recapatcha();
+function cf_antispam_init_recaptcha(){
+    $recaptcha = new CF_Antispam_Recaptcha();
 
-	//Replace existing recaptcha field
-	add_filter( 'caldera_forms_get_field_types', array( $recaptcha, 'add_field' ), 25 );
+    //Replace existing recaptcha field
+    add_filter( 'caldera_forms_get_field_types', array( $recaptcha, 'add_field' ), 25 );
 
-	//Prevent removing recaptcha from DOM from being effective bypass of recpatcha
-	add_filter( 'caldera_forms_validate_field_recaptcha', array( $recaptcha, 'check_for_captcha' ), 10, 3 );
+    //Prevent removing recaptcha from DOM from being effective bypass of recpatcha
+    add_filter( 'caldera_forms_validate_field_recaptcha', array( $recaptcha, 'check_for_captcha' ), 10, 3 );
 
 
-	add_filter( 'caldera_forms_field_attributes-recaptcha', array( $recaptcha, 'field_attrs' ), 10, 2 );
+    add_filter( 'caldera_forms_field_attributes-recaptcha', array( $recaptcha, 'field_attrs' ), 10, 2 );
 }

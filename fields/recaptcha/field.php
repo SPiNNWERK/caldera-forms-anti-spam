@@ -24,19 +24,30 @@ if( empty( $field['config']['public_key'] ) ){
 
 ob_start();
 ?>
-	<script>
-		jQuery( function($){
-			function init_recaptcha(){
-				var captch = $('#cap<?php echo $field_id; ?>');
-				captch.empty();
-				grecaptcha.render( captch[0], { "sitekey" : "<?php echo $field['config']['public_key']; ?>", "theme" : "<?php echo $field['config']['theme']; ?>" } );
-			}
-			jQuery(document).on('click', '.reset_<?php echo $field_id; ?>', function(e){
-				e.preventDefault();
-				init_recaptcha();
-			} );
-		});
-	</script><?php
+    <script>
+        function set_recaptcha_response(response) {
+            jQuery(function ($) {
+                $('#<?php echo $field_id; ?>').val(response || '').trigger('input');
+            });
+        }
+
+        function init_recaptcha() {
+            jQuery(function ($) {
+                var captch = $('#cap<?php echo $field_id; ?>');
+                captch.empty();
+                grecaptcha.render(captch[0], {
+                    "sitekey": "<?php echo $field['config']['public_key']; ?>",
+                    "callback": "set_recaptcha_response",
+                    "expired-callback": "set_recaptcha_response",
+                });
+            });
+        }
+
+        jQuery(document).on('click', '.reset_<?php echo $field_id; ?>', function (e) {
+            e.preventDefault();
+            init_recaptcha();
+        });
+    </script><?php
 
 $script_template = ob_get_clean();
 Caldera_Forms_Render_Util::add_inline_data( $script_template, $form );

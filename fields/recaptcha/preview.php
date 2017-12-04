@@ -1,6 +1,6 @@
 {{#if config/public_key}}
 	{{#if config/private_key}}
-		<div id="cap{{id}}" class="g-recaptcha" data-sitekey="{{config/public_key}}" data-theme="{{config/theme}}"></div>
+		<div id="cap{{id}}" class="g-recaptcha" data-sitekey="{{config/public_key}}"></div>
 		{{#script}}
 
 		jQuery(document).ready( function(){
