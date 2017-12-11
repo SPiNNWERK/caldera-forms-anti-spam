@@ -35,7 +35,7 @@ class CF_Antispam_Recaptcha {
 
         );
 
-        $fields ['recaptcha']['scripts'][] = 'http' . (is_ssl() ? 's' : '') . '://www.google.com/recaptcha/api.js?onload=init_recaptcha&render=explicit';
+        $fields ['recaptcha']['scripts'][] = 'http' . (is_ssl() ? 's' : '') . '://www.google.com/recaptcha/api.js?onload=init_recaptcha&render=explicit&hl=de-AT';
 
         return $fields;
 
